@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\FormController;
-use App\Http\Controllers\ResourceController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,5 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/form', [FormController::class, 'create'])->name('get-form');
-Route::post('/sum', [FormController::class, 'sum'])->name('sum-of-numbers');
+Route::get('/register', [UserController::class,'create'])->name('register-form');
+Route::post('/register', [UserController::class,'store'])->name('register');

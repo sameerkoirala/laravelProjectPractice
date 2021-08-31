@@ -19,3 +19,4 @@ Route::get('/', function () {
 
 Route::get('/register', [UserController::class,'create'])->name('register-form');
 Route::post('/register', [UserController::class,'store'])->name('register');
+Route::get('/users', [UserController::class, 'index'])->name('list-users');

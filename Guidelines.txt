@@ -1,0 +1,7 @@
+php artisan make:model Register -ms
+php artisan make:controller RegisterController --resource
+Go to migration path and setup table for registers
+Go to Model path and setup tables, primary key and fillable
+Go to RegisterController and write logic for index, create and store
+Go to web.php and make route :
+Route::resource('registers', RegistersController::class);

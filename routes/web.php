@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegistersController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', [UserController::class,'create'])->name('register-form');
-Route::post('/register', [UserController::class,'store'])->name('register');
-Route::get('/users', [UserController::class, 'index'])->name('list-users');
+//Route::get('/register', [UserController::class,'create'])->name('register-form');
+//Route::post('/register', [UserController::class,'store'])->name('register');
+//Route::get('/users', [UserController::class, 'index'])->name('list-users');
+
+Route::resource('registers', RegistersController::class);

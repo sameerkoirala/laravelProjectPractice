@@ -3,16 +3,11 @@
 @section('content')
     <div class="container">
         <div class="row">
-
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Create New Register</div>
+                    <div class="card-header">Edit Register #{{ $register->id }}</div>
                     <div class="card-body">
-                        <a href="{{ url('/registers') }}" title="Back">
-                            <button class="btn btn-warning btn-sm">
-                                <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
-                            </button>
-                        </a>
+                        <a href="{{ url('/registers') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -24,10 +19,10 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ url('/registers') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/registers/' . $register->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                            {{ method_field('PATCH') }}
                             {{ csrf_field() }}
-
-                            @include ('registers.form', ['formMode' => 'create'])
+                            @include ('registers.form', ['formMode' => 'edit'])
 
                         </form>
 

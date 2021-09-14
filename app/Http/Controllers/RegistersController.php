@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Register;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class RegistersController extends Controller
 {
@@ -16,9 +17,7 @@ class RegistersController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = 25;
-
-        $registers = Register::latest()->paginate($perPage);
+        $registers = Register::all();
 
         return view('registers.index', compact('registers'));
     }
@@ -52,12 +51,95 @@ class RegistersController extends Controller
         ]);
 
         $requestData = $request->all();
+
+        $password = $request->get('password');
+        $requestData['password'] = Hash::make($password);
+
         $path = $request->file('profile');
-        $path->storeAs('public/images', 'abc.jpeg');
-        $path = '/images/abc.jpeg';
+        $name = $path->getClientOriginalName();
+        $path->storeAs('public/images', $name);
+        $path = "/images/$name";
         $requestData['profile'] = $path;
+
         Register::create($requestData);
 
         return redirect('registers')->with('flash_message', 'Register added!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $register = Register::find($id);
+
+        return view('registers.show', compact('register'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $register = Register::find($id);
+
+        return view('registers.edit', compact('register'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Request $request, $id)
+    {
+
+        $requestData = $request->all();
+
+        $register = Register::find($id);
+
+        $password = $request->get('password');
+        if ($register->password !== $password)
+        {
+            $requestData['password'] = Hash::make($password);
+        }
+
+        if ($request->hasFile('profile'))
+        {
+            $path = $request->file('profile');
+            $name = $path->getClientOriginalName();
+            $path->storeAs('public/images', $name);
+            $path = "/images/$name";
+            $requestData['profile'] = $path;
+        }
+
+        $register->update($requestData);
+
+        return redirect('registers')->with('flash_message', 'Register updated!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function destroy($id)
+    {
+        Register::destroy($id);
+
+        return redirect('registers')->with('flash_message', 'Register deleted!');
     }
 }

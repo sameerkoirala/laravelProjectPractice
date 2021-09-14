@@ -25,10 +25,12 @@
 </div>
 <div class="form-group {{ $errors->has('profile') ? 'has-error' : ''}}">
     <label for="profile" class="control-label">{{ 'Profile' }}</label>
+    @if($formMode === 'edit')
+        <img src="{{ url("/storage/$register->profile") }}">
+    @endif
     <input class="form-control" name="profile" type="file" id="profile" value="{{ isset($register->profile) ? $register->profile : ''}}" >
     {!! $errors->first('profile', '<p class="help-block">:message</p>') !!}
 </div>
-
 
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">

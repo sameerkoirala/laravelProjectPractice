@@ -18,8 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/register', [UserController::class,'create'])->name('register-form');
-//Route::post('/register', [UserController::class,'store'])->name('register');
-//Route::get('/users', [UserController::class, 'index'])->name('list-users');
+//Route::get('/demos', [\App\Http\Controllers\DemoController::class, 'index']);
+//Route::get('/demos/create', [\App\Http\Controllers\DemoController::class, 'create']);
+//Route::post('/demos', [\App\Http\Controllers\DemoController::class, 'store']);
+//Route::get('/demos/{id}', [\App\Http\Controllers\DemoController::class, 'show']);
+//Route::get('/demos/{id}/edit', [\App\Http\Controllers\DemoController::class, 'edit']);
+//Route::patch('/demos/{id}', [\App\Http\Controllers\DemoController::class, 'update']);
+//Route::delete('/demos/{id}', [\App\Http\Controllers\DemoController::class, 'destroy']);
 
-Route::resource('registers', RegistersController::class);
+Route::resource('demos', \App\Http\Controllers\DemoController::class);
+Route::resource('registers', \App\Http\Controllers\RegistersController::class);

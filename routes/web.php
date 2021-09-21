@@ -18,13 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/demos', [\App\Http\Controllers\DemoController::class, 'index']);
-//Route::get('/demos/create', [\App\Http\Controllers\DemoController::class, 'create']);
-//Route::post('/demos', [\App\Http\Controllers\DemoController::class, 'store']);
-//Route::get('/demos/{id}', [\App\Http\Controllers\DemoController::class, 'show']);
-//Route::get('/demos/{id}/edit', [\App\Http\Controllers\DemoController::class, 'edit']);
-//Route::patch('/demos/{id}', [\App\Http\Controllers\DemoController::class, 'update']);
-//Route::delete('/demos/{id}', [\App\Http\Controllers\DemoController::class, 'destroy']);
+//Route::get('/examples', [\App\Http\Controllers\NewExampleController::class, 'index']);
+//Route::get('/examples/create', [\App\Http\Controllers\NewExampleController::class, 'create']);
+//Route::post('/examples', [\App\Http\Controllers\NewExampleController::class, 'store']);
+//Route::get('/examples/{id}', [\App\Http\Controllers\NewExampleController::class, 'show']);
+//Route::get('/examples/{id}/edit', [\App\Http\Controllers\NewExampleController::class, 'edit']);
+//Route::patch('/examples/{id}', [\App\Http\Controllers\NewExampleController::class, 'update']);
+//Route::delete('/examples/{id}', [\App\Http\Controllers\NewExampleController::class, 'destroy']);
+Route::get('/jpt', [\App\Http\Controllers\NewExampleController::class,'jpt']);
 
 Route::resource('demos', \App\Http\Controllers\DemoController::class);
+
 Route::resource('registers', \App\Http\Controllers\RegistersController::class);

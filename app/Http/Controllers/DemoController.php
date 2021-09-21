@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Demo;
 use Illuminate\Http\Request;
 use TheSeer\Tokenizer\Exception;
 
@@ -14,7 +15,9 @@ class DemoController extends Controller
      */
     public function index()
     {
-        echo 'This is list';
+//        $demos = Demo::all();
+        $demos = Demo::latest()->get();
+        return view('demo.index', compact('demos'));
     }
 
     /**
@@ -35,7 +38,12 @@ class DemoController extends Controller
      */
     public function store(Request $request)
     {
-        echo 'This is store';
+//        $name = $request->input('name1');
+//        $password = $request->input('password1');
+//        Demo::create(['name' => $name, 'password' => $password]);
+        date_default_timezone_set('Asia/Kathmandu');
+        Demo::create($request->all());
+        return redirect('/demos');
     }
 
     /**
@@ -46,8 +54,8 @@ class DemoController extends Controller
      */
     public function show($id)
     {
-        echo "THIS IS SHOW $id";
-        return view('demo.delete', compact('id'));
+        $demo = Demo::find($id);
+        return view('demo.show', compact('demo'));
     }
 
     /**
@@ -58,8 +66,8 @@ class DemoController extends Controller
      */
     public function edit($id)
     {
-        $newId = $id + 1;
-        return view('demo.edit', compact('newId'));
+        $demo = Demo::find($id);
+        return view('demo.edit', compact('demo'));
     }
 
     /**
@@ -71,7 +79,10 @@ class DemoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        echo "THis is update for $id";
+        $demo = Demo::find($id);
+        $requestInput = $request->all();
+        $demo->update($requestInput);
+        return redirect('/demos');
     }
 
     /**
@@ -82,7 +93,9 @@ class DemoController extends Controller
      */
     public function destroy($id)
     {
-        echo "This is destroy $id";
+        $demo = Demo::find($id);
+        $demo->delete();
+        return redirect('/demos');
     }
 
     public function self()
